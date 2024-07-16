@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Interactive Matching Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .list {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px;
+        }
+        .list li {
+            padding: 10px;
+            margin: 5px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .dropzone {
+            min-height: 50px;
+            padding: 10px;
+            border: 2px dashed #ccc;
+            margin: 5px;
+            background-color: #fff;
+        }
+        .correct {
+            border-color: green;
+            background-color: #e0ffe0;
+        }
+        .wrong {
+            border-color: red;
+            background-color: #ffe0e0;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Match the Google Docs Features to Their Benefits</h2>
+
+<div class="container">
+    <ul id="features" class="list">
+        <li draggable="true" ondragstart="drag(event)" id="feature1">Real-time collaboration</li>
+        <li draggable="true" ondragstart="drag(event)" id="feature2">Commenting and suggestions</li>
+        <li draggable="true" ondragstart="drag(event)" id="feature3">Version history</li>
+        <li draggable="true" ondragstart="drag(event)" id="feature4">Accessibility features</li>
+    </ul>
+
+    <ul id="benefits" class="list">
+        <li class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)" data-correct="feature1">Allows multiple users to work on a document simultaneously</li>
+        <li class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)" data-correct="feature2">Enables peer review and feedback</li>
+        <li class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)" data-correct="feature3">Tracks changes and restores previous versions</li>
+        <li class="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)" data-correct="feature4">Supports students with different needs</li>
+    </ul>
+</div>
+
+<script>
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        var target = ev.target;
+
+        if (target.getAttribute("data-correct") === data) {
+            target.classList.add("correct");
+            target.classList.remove("wrong");
+        } else {
+            target.classList.add("wrong");
+            target.classList.remove("correct");
+        }
+
+        target.appendChild(document.getElementById(data));
+    }
+</script>
+
+</body>
+</html>
